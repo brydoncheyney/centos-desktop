@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# epel
-rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+set -oux pipefail
 
-# ansible
+yum -y install epel-release
 yum -y install ansible

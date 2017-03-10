@@ -1,3 +1,5 @@
 *.iso
 *.txt
 *.box
+.vagrant/
+output-virtualbox-iso/
