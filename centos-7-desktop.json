@@ -55,6 +55,10 @@
       "type": "shell",
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "script": "scripts/guest_additions.sh"
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "ansible/playbook.yml"
     }
   ],
   "post-processors": [
