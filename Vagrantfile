@@ -2,15 +2,19 @@
 # vi: set ft=ruby :
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'centos-7-desktop'
-  config.vm.hostname = 'centos-7-desktop'
 
   config.ssh.username = 'vagrant'
   config.ssh.password = 'vagrant'
 
-  config.vm.define 'centos-7-desktop' do |instance|
+  config.vm.define 'centos-7-desktop' do |desktop|
+    desktop.vm.box = 'centos-7-desktop'
     if Vagrant.has_plugin?('vagrant-hosts')
-      instance.vm.provision :hosts
+      desktop.vm.provision :hosts
+    end
+
+    desktop.vm.provision 'ansible' do |ansible|
+      ansible.playbook = 'ansible/playbook.yml'
+      ansible.sudo = true
     end
   end
 

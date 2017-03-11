@@ -1,5 +1,6 @@
 *.iso
 *.txt
 *.box
+*.retry
 .vagrant/
 output-virtualbox-iso/

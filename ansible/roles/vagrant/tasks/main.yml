@@ -3,7 +3,7 @@
        state=installed
 
 - name: install vagrant plugins
-  command: vagrant plugin install {{plugin}}
-  with_items:
-  - vagrant-lxc
-  - vagrant-hosts
+  shell: "vagrant plugin install {{ item }}"
+  with_items: [vagrant-lxc, vagrant-hosts]
+  become: yes
+  become_user: vagrant
