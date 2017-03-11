@@ -1,22 +1,5 @@
 #!/usr/bin/env bash
 
-iso="CentOS-7-x86_64-Minimal-1611.iso"
-iso_url="http://mirror.bytemark.co.uk/centos/7/isos/x86_64/${iso}"
-checksum_file="sha256sum.txt"
-checksum_url="http://mirror.bytemark.co.uk/centos/7/isos/x86_64/${checksum_file}"
+set -oux pipefail
 
-# Download and validate ISO
-[[ ! -f ${iso} ]] && {
-  wget ${iso_url}
-  wget ${checksum_url}
-}
-
-sha_checksum=$(sha256sum ${iso})
-checksum=$(awk "/${iso}/ {print $1}" ${checksum_file})
-[[ "${sha_checksum}" != "${checksum}" ]] || {
-  echo "Error: checksum error!"
-  echo "- expected : ${checksum}"
-  echo "- actual   : $(grep ${iso} ${checksum_file})"
-  exit 1
-}
-
+packer build centos-7-desktop.json
