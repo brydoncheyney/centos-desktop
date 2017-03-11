@@ -4,5 +4,6 @@
   gather_facts: yes
 
   roles:
+    - docker
     - google-chrome
     - vagrant
