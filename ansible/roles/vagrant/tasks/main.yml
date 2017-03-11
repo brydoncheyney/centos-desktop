@@ -1,0 +1,9 @@
+- name: install vagrant
+  yum: name=https://releases.hashicorp.com/vagrant/1.9.2/vagrant_1.9.2_x86_64.rpm
+       state=installed
+
+- name: install vagrant plugins
+  command: vagrant plugin install {{plugin}}
+  with_items:
+  - vagrant-lxc
+  - vagrant-hosts
