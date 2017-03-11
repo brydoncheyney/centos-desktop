@@ -14,6 +14,10 @@ Vagrant.configure('2') do |config|
 
     desktop.vm.synced_folder '.', '/work'
 
+    desktop.vm.provider :virtualbox do |vb|
+      vb.customize ['modifyvm', :id, '--clipboard', 'bidirectional']
+    end
+
     desktop.vm.provision 'ansible' do |ansible|
       ansible.playbook = 'ansible/playbook.yml'
       ansible.sudo = true
