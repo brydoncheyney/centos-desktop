@@ -1,11 +1,11 @@
-- name: install docker repo
+- name: install docker-ce repo
   get_url:
     url: https://download.docker.com/linux/centos/docker-ce.repo
     dest: /etc/yum.repos.d/docker-ce.repo
     mode: 0664
 
-- name: install docker
-  yum: name=docker state=latest
+- name: install docker-ce
+  yum: name=docker-ce state=latest
 
 - name: run docker
   service: name=docker state=running
