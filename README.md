@@ -9,7 +9,13 @@ Provisioning a Centos 7 Desktop using [Packer](https://www.packer.io/),
 
 Build and package the centos-7-desktop box
 
+    packer build centos-7-desktop.json
+
+or run the including script
+
     ./build
+
+This will generate a box file in the `./builds` folder.
 
 Install the box
 
