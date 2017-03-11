@@ -9,3 +9,12 @@
 
 - name: run docker
   service: name=docker state=running
+
+- name: add docker group
+  group: name=docker
+
+- name: add vagrant user to docker group
+  user:
+    name: vagrant
+    groups: docker
+    append: yes
