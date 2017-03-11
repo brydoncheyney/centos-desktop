@@ -12,6 +12,8 @@ Vagrant.configure('2') do |config|
       desktop.vm.provision :hosts
     end
 
+    desktop.vm.synced_folder '.', '/work'
+
     desktop.vm.provision 'ansible' do |ansible|
       ansible.playbook = 'ansible/playbook.yml'
       ansible.sudo = true
