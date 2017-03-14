@@ -6,6 +6,10 @@ Vagrant.configure('2') do |config|
   config.ssh.username = 'vagrant'
   config.ssh.password = 'vagrant'
 
+  if Vagrant.has_plugin?("vagrant-cachier")
+     config.cache.scope = :box
+  end
+
   config.vm.define 'centos-7-desktop' do |desktop|
     desktop.vm.box = 'centos-7-desktop'
     if Vagrant.has_plugin?('vagrant-hosts')
