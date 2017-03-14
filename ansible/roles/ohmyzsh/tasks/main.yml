@@ -1,0 +1,16 @@
+- name: download oh-my-zsh install script
+  get_url:
+    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    dest: /tmp/install-oh-my-zsh.sh
+    mode: 0755
+
+- name: install oh-my-zsh
+  become: yes
+  become_user: vagrant
+  shell: /tmp/install-oh-my-zsh.sh
+
+- name: configure zshrc
+  become: yes
+  become_user: vagrant
+  #copy: src=files/zshrc dest={{ ansible_env.HOME }}/.zshrc backup=yes
+  copy: src=files/zshrc dest=/home/vagrant/.zshrc backup=yes

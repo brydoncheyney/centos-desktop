@@ -6,4 +6,5 @@
   roles:
     - docker
     - google-chrome
+    - ohmyzsh
     - vagrant
