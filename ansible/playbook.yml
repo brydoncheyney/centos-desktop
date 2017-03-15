@@ -1,10 +1,20 @@
 ---
-- hosts: all
+- name: system wide configuration
+  hosts: all
   become: yes
   gather_facts: yes
 
   roles:
     - docker
     - google-chrome
-    - ohmyzsh
     - vagrant
+    - zsh
+
+- name: user configuration
+  hosts: all
+  become: yes
+  become_user: vagrant
+  gather_facts: yes
+
+  roles:
+    - ohmyzsh

@@ -1,3 +1,4 @@
+# {{ ansible_managed }}
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME='wedisagree'
 

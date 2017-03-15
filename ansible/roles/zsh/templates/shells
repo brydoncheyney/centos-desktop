@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+/bin/sh
+/bin/bash
+/sbin/nologin
+/usr/bin/sh
+/usr/bin/bash
+/usr/sbin/nologin
+/bin/tcsh
+/bin/csh
+/bin/zsh
+/usr/bin/zsh

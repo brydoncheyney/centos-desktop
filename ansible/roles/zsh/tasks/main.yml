@@ -1,2 +1,12 @@
 - name: install zsh
   yum: name=zsh state=installed
+
+- name: add zsh to /etc/shells
+  template:
+    src: templates/shells
+    dest: /etc/shells
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+    validate: 'grep -qs "/usr/bin/zsh" %s'
