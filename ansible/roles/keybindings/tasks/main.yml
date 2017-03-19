@@ -1,0 +1,15 @@
+- name: configure custom keybinding
+  gsetting:
+    schema: 'org.gnome.settings-daemon.plugins.media-keys'
+    key:    'custom-keybindings'
+    value:  "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']"
+
+- name : gsettings lib
+  gsetting:
+    schema: 'org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/'
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_items:
+    - { key: 'name', value: "'terminal'" }
+    - { key: 'command', value: "'gnome-terminal'" }
+    - { key: 'binding', value: "'<Primary><Alt>t'" }
