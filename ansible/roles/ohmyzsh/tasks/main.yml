@@ -1,15 +1,35 @@
-- name: download oh-my-zsh install script
-  get_url:
-    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-    dest: /tmp/install-oh-my-zsh.sh
-    mode: 0755
+# FIXME: install script doesn't handle automoation (call to chsh) well...
+#- name: download oh-my-zsh install script
+#  get_url:
+#    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+#    dest: /tmp/install-oh-my-zsh.sh
+#    mode: 0755
+#
+#- name: install oh-my-zsh
+#  shell: /tmp/install-oh-my-zsh.sh
 
 - name: install oh-my-zsh
-  shell: /tmp/install-oh-my-zsh.sh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: '/home/vagrant/.oh-my-zsh'
+
+- name: setting user file permissions
+  file:
+    path: '/home/vagrant/.oh-my-zsh'
+    owner: vagrant
+    group: vagrant
+    recurse: yes
+
+- name: setting zsh as default shell
+  user:
+    name: vagrant
+    shell: /usr/bin/zsh
 
 - name: configure zshrc
   template:
     src: templates/zshrc
-    dest: "{{ ansible_env.HOME }}/.zshrc"
+    dest: '/home/vagrant/.zshrc'
+    owner: vagrant
+    group: vagrant
     mode: 0644
     backup: yes
