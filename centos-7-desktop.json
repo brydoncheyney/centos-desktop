@@ -63,7 +63,7 @@
       "script": "scripts/guest_additions.sh"
     },
     {
-      "type": "ansible-local",
+      "type": "ansible",
       "playbook_file": "ansible/playbook.yml"
     }
   ],
