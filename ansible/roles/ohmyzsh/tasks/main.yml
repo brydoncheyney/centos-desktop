@@ -33,3 +33,4 @@
     group: vagrant
     mode: 0644
     backup: yes
+  tags: ['configuration']

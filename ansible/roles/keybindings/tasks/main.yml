@@ -4,6 +4,7 @@
     key:    'custom-keybindings'
     value:  "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']"
   become_user: vagrant
+  tags: ['user', 'configuration']
 
 - name : gsettings lib
   gsetting:
@@ -15,3 +16,4 @@
     - { key: 'name', value: "'terminal'" }
     - { key: 'command', value: "'gnome-terminal'" }
     - { key: 'binding', value: "'<Primary><Alt>t'" }
+  tags: ['user', 'configuration']
