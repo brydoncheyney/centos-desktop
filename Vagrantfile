@@ -25,6 +25,7 @@ Vagrant.configure('2') do |config|
     desktop.vm.provision 'ansible' do |ansible|
       ansible.playbook = 'ansible/playbook.yml'
       ansible.sudo = true
+      ansible.verbose = 'v'
     end
   end
 

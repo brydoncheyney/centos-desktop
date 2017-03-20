@@ -9,7 +9,7 @@ from ansible.module_utils.basic import AnsibleModule
 def _escape_single_quotes(string):
     return re.sub("'", r"'\''", string)
 
-def _set_value(schema, key, value):
+def _command(schema, key, value):
 
     command = " ".join([
         'export `/usr/bin/dbus-launch`',
@@ -19,6 +19,12 @@ def _set_value(schema, key, value):
         ';',
         'kill $DBUS_SESSION_BUS_PID &> /dev/null'
     ])
+
+    return command
+
+def _set_value(schema, key, value):
+
+    command = _command(schema, key, value)
 
     return subprocess.check_output(command, shell=True).strip()
 
@@ -64,6 +70,7 @@ def main():
         'key': key,
         'value': value,
         'old_value': old_value,
+	'command': _command(schema, key, value)
     })
 
 if __name__ == '__main__':

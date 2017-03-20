@@ -1,6 +1,5 @@
 ---
-- name: system wide configuration
-  hosts: all
+- hosts: all
   become: yes
   gather_facts: yes
 
@@ -9,12 +8,5 @@
     - google-chrome
     - vagrant
     - zsh
-
-- name: user configuration
-  hosts: all
-  become: yes
-  become_user: vagrant
-  gather_facts: yes
-
-  roles:
     - ohmyzsh
+    - keybindings

@@ -3,12 +3,14 @@
     schema: 'org.gnome.settings-daemon.plugins.media-keys'
     key:    'custom-keybindings'
     value:  "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']"
+  become_user: vagrant
 
 - name : gsettings lib
   gsetting:
     schema: 'org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/'
     key: "{{ item.key }}"
     value: "{{ item.value }}"
+  become_user: vagrant
   with_items:
     - { key: 'name', value: "'terminal'" }
     - { key: 'command', value: "'gnome-terminal'" }
