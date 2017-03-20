@@ -1,0 +1,7 @@
+- name: adding user accounts
+  user:
+    name: "{{ item.username }}"
+  with_items:
+    - "{{ users }}"
+  tags:
+    - users
