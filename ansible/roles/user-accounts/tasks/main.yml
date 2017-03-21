@@ -1,6 +1,7 @@
 - name: adding user accounts
   user:
     name: "{{ item.username }}"
+    password: "{{ item.password | default(omit) }}"
   with_items:
     - "{{ users }}"
   tags:
