@@ -1,19 +1,21 @@
-- name: configure custom keybinding
+- name: add custom keybinding
   gsetting:
     schema: 'org.gnome.settings-daemon.plugins.media-keys'
     key:    'custom-keybindings'
     value:  "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']"
-  become_user: vagrant
-  tags: ['user', 'configuration']
-
-- name : gsettings lib
-  gsetting:
-    schema: 'org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/'
-    key: "{{ item.key }}"
-    value: "{{ item.value }}"
-  become_user: vagrant
+  become_user: "{{ item.username }}"
   with_items:
-    - { key: 'name', value: "'terminal'" }
-    - { key: 'command', value: "'gnome-terminal'" }
-    - { key: 'binding', value: "'<Primary><Alt>t'" }
-  tags: ['user', 'configuration']
+    - "{{ users }}"
+  tags:
+    - user
+    - configuration
+
+- name: configure custom keybinding
+  include: keybinding.yml
+  with_items:
+    - "{{ users }}"
+  loop_control:
+    loop_var: user
+  tags:
+    - user
+    - configuration

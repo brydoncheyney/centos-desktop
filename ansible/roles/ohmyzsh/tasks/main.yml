@@ -11,26 +11,42 @@
 - name: install oh-my-zsh
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
-    dest: '/home/vagrant/.oh-my-zsh'
+    dest: "/home/{{ item.username }}/.oh-my-zsh"
+  with_items:
+    - "{{ users }}"
+  tags:
+    - user
 
 - name: setting user file permissions
   file:
-    path: '/home/vagrant/.oh-my-zsh'
-    owner: vagrant
-    group: vagrant
+    path: "/home/{{ item.username }}/.oh-my-zsh"
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
     recurse: yes
+  with_items:
+    - "{{ users }}"
+  tags:
+    - user
 
 - name: setting zsh as default shell
   user:
-    name: vagrant
+    name: "{{ item.username }}"
     shell: /usr/bin/zsh
+  with_items:
+    - "{{ users }}"
+  tags:
+    - user
 
 - name: configure zshrc
   template:
     src: templates/zshrc
-    dest: '/home/vagrant/.zshrc'
-    owner: vagrant
-    group: vagrant
+    dest: "/home/{{ item.username }}/.zshrc"
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
     mode: 0644
     backup: yes
-  tags: ['configuration']
+  with_items:
+    - "{{ users }}"
+  tags:
+    - user
+    - configuration
