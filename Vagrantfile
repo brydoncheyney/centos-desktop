@@ -26,6 +26,7 @@ Vagrant.configure('2') do |config|
       ansible.playbook = 'ansible/playbook.yml'
       ansible.sudo = true
       ansible.verbose = 'v'
+      ansible.tags = 'all'
     end
   end
 
