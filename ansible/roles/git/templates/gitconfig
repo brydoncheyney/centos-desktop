@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+[alias]
+  ci = commit
+  co = checkout
+  st = status
+  l1 = log --oneline
+  l = log --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cr)%Creset%C(yellow)%d%Creset %s'
+[push]
+  default = simple
+[color]
+  ui = auto

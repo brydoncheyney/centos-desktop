@@ -6,6 +6,7 @@
   roles:
     - user-accounts
     - docker
+    - git
     - google-chrome
     - vagrant
     - zsh

@@ -1,0 +1,13 @@
+- name: install git
+  yum: name=git state=installed
+
+- name: add system git config
+  template:
+    src: templates/gitconfig
+    dest: /etc/gitconfig
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  tags:
+    - configuration
