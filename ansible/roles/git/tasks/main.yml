@@ -1,5 +1,77 @@
-- name: install git
-  yum: name=git state=installed
+- name: get installed version of git
+  shell: >
+    git --version | awk '{print $NF}'
+    warn=no
+  environment:
+    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
+  register: installed_version
+  check_mode: no
+
+- name: determine whether an install is required
+  set_fact:
+    updating_git: true
+  when: "installed_version.stdout | version_compare('{{ git.version }}', '<')"
+
+- name: create temporary build folder
+  command:
+    mktemp -d
+  register: mktemp
+  when: updating_git
+
+- name: download sha256sums
+  get_url:
+    url: https://www.kernel.org/pub/software/scm/git/sha256sums.asc
+    dest: "{{ mktemp.stdout }}"
+  when: updating_git
+
+- name: get checksum
+  shell: >
+    grep git-{{ git.version }}.tar.gz {{ mktemp.stdout }}/sha256sums.asc | awk '{print $1}'
+  register: checksum
+  when: updating_git
+
+- name: download git archive
+  get_url:
+    url: "https://www.kernel.org/pub/software/scm/git/git-{{ git.version }}.tar.gz"
+    dest: "{{ mktemp.stdout }}/git-{{ git.version }}.tar.gz"
+    checksum: "sha256:{{ checksum.stdout }}"
+  when: updating_git
+
+- name: unpack git archive
+  unarchive:
+    src: "{{ mktemp.stdout }}/git-{{ git.version }}.tar.gz"
+    dest: "{{ mktemp.stdout }}"
+    copy: no
+  when:  updating_git
+
+- name: install build dependencies
+  package:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - curl-devel
+    - expat-devel
+    - gettext-devel
+    - openssl-devel
+    - perl-devel
+    - zlib-devel
+
+- name: build and install
+  command: >
+    make prefix={{ git.prefix }} {{ item }}
+    chdir={{ mktemp.stdout }}/git-{{ git.version }}
+  with_items:
+    - all
+    - install
+  become: yes
+  become_user: root
+  when: updating_git
+
+- name: clean temporary build folder
+  file:
+    path: "{{ mktemp.stdout }}"
+    state: absent
+  when: updating_git
 
 - name: add system git config
   template:

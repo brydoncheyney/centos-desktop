@@ -4,3 +4,9 @@ users:
     password: shnVR.zkj9AFc
   - username: jon
     password: shISMO7qIxfUk
+
+git:
+  version: 2.12.2
+  prefix: /usr/local
+
+updating_git: false

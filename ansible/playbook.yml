@@ -6,7 +6,7 @@
   roles:
     - user-accounts
     - docker
-    - git
+    - {role: git, tags: ['git']}
     - google-chrome
     - vagrant
     - zsh
