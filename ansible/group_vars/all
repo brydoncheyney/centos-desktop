@@ -13,3 +13,9 @@ updating_git: false
 
 ruby:
   version: 2.4.1
+
+java_version: 1.8.0
+java_packages:
+  - java-{{ java_version }}-openjdk
+  - java-{{ java_version }}-openjdk-devel
+  - java-{{ java_version }}-openjdk-javadoc

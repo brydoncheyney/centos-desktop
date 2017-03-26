@@ -8,6 +8,7 @@
     - docker
     - {role: git, tags: ['git']}
     - {role: ruby, tags: ['ruby']}
+    - {role: java, tags: ['java']}
     - google-chrome
     - vagrant
     - zsh
