@@ -1,0 +1,52 @@
+- name: install dependencies
+  package:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - gcc-c++
+    - patch
+    - readline
+    - readline-devel
+    - zlib
+    - zlib-devel
+    - libyaml-devel
+    - libffi-devel
+    - openssl-devel
+    - make
+    - bzip2
+    - autoconf
+    - automake
+    - libtool
+    - bison
+    - sqlite-devel
+
+- name: download rvm installer + gpg keys
+  shell: |
+    gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+    \curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
+    \curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer.asc
+  become: yes
+
+- name: verify rvm installer
+  shell: |
+    gpg2 --verify rvm-installer.asc
+  become: yes
+
+- name: install rvm
+  shell: |
+    bash rvm-installer stable --ruby={{ ruby.version }}
+  become: yes
+
+- name: verify install
+  shell:
+    source /etc/profile.d/rvm.sh && rvm requirements run
+  args:
+    executable: /bin/bash
+
+- name: add rvm group to users
+  user:
+    name: "{{ item.username }}"
+    group: rvm
+    append: yes
+  with_items:
+    - "{{ users }}"

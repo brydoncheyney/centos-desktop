@@ -10,3 +10,6 @@ git:
   prefix: /usr/local
 
 updating_git: false
+
+ruby:
+  version: 2.4.1
