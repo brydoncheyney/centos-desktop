@@ -17,7 +17,7 @@
 
 - name: download self-install lein package
   get_url:
-    url: "{{ lein.url_base }} /{{ lein.version }}/leiningen-{{ lein.version }}-standalone.zip"
+    url: "{{ lein.url_base }}/{{ lein.version }}/leiningen-{{ lein.version }}-standalone.zip"
     dest: "/home/{{ item.username }}/.lein/self-installs/leiningen-{{ lein.version }}-standalone.jar"
   with_items:
     - "{{ users }}"
