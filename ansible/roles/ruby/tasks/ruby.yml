@@ -11,3 +11,10 @@
 - name: set default ruby
   shell: |
     {{ rvm.install_path|quote }}/bin/rvm alias create default {{ ruby.version|quote }}
+
+- name: install gems
+  shell: |
+    {{ rvm.install_path|quote }}/bin/rvm all do gem install {{ item }} --no-rdoc --no-ri
+  with_items:
+    - bundler
+    - fpm
