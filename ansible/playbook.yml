@@ -4,7 +4,7 @@
   gather_facts: yes
 
   roles:
-    - user-accounts
+    - {role: user-accounts, tags: ['users']}
     - docker
     - {role: git, tags: ['git']}
     - {role: ruby, tags: ['ruby']}

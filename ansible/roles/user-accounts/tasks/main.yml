@@ -13,10 +13,20 @@
   tags:
     - users
 
+- name: adding primary groups for users
+  group:
+    name: "{{ item.username }}"
+    state: present
+  with_items:
+    - "{{ users }}"
+  tags:
+    - users
+
 - name: adding user accounts
   user:
     name: "{{ item.username }}"
     password: "{{ item.password | default(omit) }}"
+    group: "{{ item.username }}"
     groups: wheel
     append: yes
   with_items:
