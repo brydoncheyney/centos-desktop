@@ -11,6 +11,9 @@ git:
 
 updating_git: false
 
+rvm:
+  install_path: /usr/local/rvm
+
 ruby:
   version: 2.4.1
 

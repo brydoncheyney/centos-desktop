@@ -1,7 +1,18 @@
+- name: determine rvm binary
+  stat:
+    path: "{{ rvm.install_path }}/bin/rvm"
+  register: rvm_binary
+
+- name: determine rvm installed version
+  shell: |
+    {{ rvm.install_path|quote }}/bin/rvm version | awk '{print $2}'
+  register: rvm_installed_version
+  when: rvm_binary.stat.exists
+
 - name: install dependencies
   package:
     name: "{{ item }}"
-    state: installed
+    state: latest
   with_items:
     - gcc-c++
     - patch
@@ -19,6 +30,7 @@
     - libtool
     - bison
     - sqlite-devel
+  when: not rvm_binary.stat.exists
 
 - name: download rvm installer + gpg keys
   shell: |
@@ -26,20 +38,41 @@
     \curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
     \curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer.asc
   become: yes
+  when: not rvm_binary.stat.exists
 
 - name: verify rvm installer
   shell: |
     gpg2 --verify rvm-installer.asc
   become: yes
+  when: not rvm_binary.stat.exists
 
 - name: install rvm
   shell: |
-    bash rvm-installer stable --ruby={{ ruby.version }}
+    bash rvm-installer stable
   become: yes
+  when: not rvm_binary.stat.exists
+
+- name: update rvm
+  shell: |
+    {{ rvm.install_path|quote }}/bin/rvm get stable
+  become: yes
+  when: rvm_binary.stat.exists
+
+- name: determine installed ruby version
+  shell: |
+   {{ rvm.install_path|quote }}/bin/rvm alias list default
+  become: yes
+  register: ruby_default_version
+
+- name: install ruby
+  shell: |
+    {{ rvm.install_path|quote }}/bin/rvm install {{ ruby.version|quote }}
+  become: yes
+  when: '"{{ ruby.version }}" not in ruby_default_version.stdout'
 
 - name: verify install
-  shell:
-    source /etc/profile.d/rvm.sh && rvm requirements run
+  shell: |
+    {{ rvm.install_path|quote }}/bin/rvm requirements run
   args:
     executable: /bin/bash
 
