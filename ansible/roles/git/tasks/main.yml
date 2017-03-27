@@ -26,7 +26,7 @@
 
 - name: get checksum
   shell: >
-    grep git-{{ git.version }}.tar.gz {{ mktemp.stdout }}/sha256sums.asc | awk '{print $1}'
+    grep git-{{ git.version|quote }}.tar.gz {{ mktemp.stdout|quote }}/sha256sums.asc | awk '{print $1}'
   register: checksum
   when: updating_git
 
