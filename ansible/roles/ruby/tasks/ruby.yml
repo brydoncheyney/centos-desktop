@@ -1,0 +1,9 @@
+- name: determine installed ruby version
+  shell: |
+   {{ rvm.install_path|quote }}/bin/rvm alias list default
+  register: ruby_default_version
+
+- name: install ruby
+  shell: |
+    {{ rvm.install_path|quote }}/bin/rvm install {{ ruby.version|quote }}
+  when: '"{{ ruby.version }}" not in ruby_default_version.stdout'
