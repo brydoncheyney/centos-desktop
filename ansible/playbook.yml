@@ -9,6 +9,7 @@
     - {role: git, tags: ['git']}
     - {role: ruby, tags: ['ruby']}
     - {role: java, tags: ['java']}
+    - {role: clojure, tags: ['clojure']}
     - google-chrome
     - vagrant
     - zsh

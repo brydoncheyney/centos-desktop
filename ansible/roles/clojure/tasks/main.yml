@@ -1,0 +1,23 @@
+- name: download lein script
+  get_url:
+    url: https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+    dest: /usr/local/bin/lein
+    mode: 0755
+
+- name: create self-install directory
+  file:
+    path: "/home/{{ item.username }}/.lein/self-installs/"
+    state: directory
+    recurse: true
+    owner: "{{ item.username }}"
+    group: "{{ item.username }}"
+    mode: 0775
+  with_items:
+    - "{{ users }}"
+
+- name: download self-install lein package
+  get_url:
+    url: "{{ lein.url_base }} /{{ lein.version }}/leiningen-{{ lein.version }}-standalone.zip"
+    dest: "/home/{{ item.username }}/.lein/self-installs/leiningen-{{ lein.version }}-standalone.jar"
+  with_items:
+    - "{{ users }}"

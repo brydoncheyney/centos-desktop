@@ -19,3 +19,7 @@ java_packages:
   - java-{{ java_version }}-openjdk
   - java-{{ java_version }}-openjdk-devel
   - java-{{ java_version }}-openjdk-javadoc
+
+lein:
+  version: 2.7.1
+  url_base: https://github.com/technomancy/leiningen/releases/download
