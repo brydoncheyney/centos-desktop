@@ -5,13 +5,13 @@
 
   roles:
     - {role: user-accounts, tags: ['users']}
-    - docker
-    - {role: git, tags: ['git']}
-    - {role: ruby, tags: ['ruby']}
-    - {role: java, tags: ['java']}
-    - {role: clojure, tags: ['clojure']}
-    - google-chrome
-    - vagrant
-    - zsh
-    - ohmyzsh
-    - keybindings
+    - {role: docker,        tags: ['docker']}
+    - {role: git,           tags: ['git']}
+    - {role: ruby,          tags: ['ruby', 'lang']}
+    - {role: java,          tags: ['java', 'lang']}
+    - {role: clojure,       tags: ['clojure', 'lang']}
+    - {role: google-chrome, tags: ['google-chrome', 'browser']}
+    - {role: vagrant,       tags: ['vagrant']}
+    - {role: zsh,           tags: ['zsh']}
+    - {role: ohmyzsh,       tags: ['ohmyzsh']}
+    - {role: keybindings,   tags: ['user']}
