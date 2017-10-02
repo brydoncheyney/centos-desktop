@@ -7,7 +7,7 @@
 set -oux pipefail
 
 kernel=$(uname -r)
-yum reinstall -y --disablerepo=epel ca-certificates
+yum reinstall -y ca-certificates
 yum install -y gcc kernel-devel-${kernel} bzip2 perl
 mount -o loop /home/vagrant/VBoxGuestAdditions.iso /mnt
 REMOVE_INSTALLATION_DIR=0 /mnt/VBoxLinuxAdditions.run
