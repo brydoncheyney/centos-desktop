@@ -10,7 +10,7 @@
 - name: determine whether an install is required
   set_fact:
     updating_git: true
-  when: "installed_version.stdout | version_compare('{{ git.version }}', '<')"
+  when: "installed_version.stdout | version_compare(git.version, '<')"
 
 - name: create temporary build folder
   command:
