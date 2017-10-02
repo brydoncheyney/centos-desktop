@@ -6,7 +6,7 @@ users:
     password: shISMO7qIxfUk
 
 git:
-  version: 2.12.2
+  version: 2.14.2
   prefix: /usr/local
 
 updating_git: false
