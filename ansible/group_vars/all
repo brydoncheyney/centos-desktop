@@ -26,3 +26,6 @@ java_packages:
 lein:
   version: 2.7.1
   url_base: https://github.com/technomancy/leiningen/releases/download
+
+vagrant:
+  version: 2.0.0
