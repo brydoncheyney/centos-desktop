@@ -2,4 +2,4 @@
 
 set -oux pipefail
 
-packer build centos-7-desktop.json
+packer build -force -on-error=abort centos-7-desktop.json
